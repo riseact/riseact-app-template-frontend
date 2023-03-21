@@ -4,6 +4,8 @@ import "./App.css";
 import OrganizationInfo from "./OrganizationInfo";
 
 function App() {
+  const token = getCookie("_t");
+
   return (
     <div className="App">
       <div>
@@ -20,7 +22,13 @@ function App() {
         <OrganizationInfo />
         <p>
           Take a look to the{" "}
-          <a href="http://localhost:3000/graphql">Riseact GraphQL schema</a>{" "}
+          <a
+            href={`
+            https://studio.apollographql.com/sandbox/explorer?endpoint=http%3A%2F%2Flocalhost%3A3000%2Fgraphql&headers=%7B%22Authorization%22%3A%22Bearer%20${token}%22%7D
+          `}
+          >
+            Riseact GraphQL schema
+          </a>{" "}
           from your app.
           <br />
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -32,5 +40,11 @@ function App() {
     </div>
   );
 }
+
+const getCookie = (name: string) => {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(";").shift();
+};
 
 export default App;

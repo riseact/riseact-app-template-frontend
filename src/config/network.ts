@@ -1,8 +1,8 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
-import urlJoin from "url-join";
+import { ApolloClient, InMemoryCache } from '@apollo/client';
+import urlJoin from 'url-join';
 
 const gqlClient = new ApolloClient({
-  uri: urlJoin(location.origin, "/graphql"),
+  uri: urlJoin(location.origin, '/graphql'),
   cache: new InMemoryCache(),
 });
 

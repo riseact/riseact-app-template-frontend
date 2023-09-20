@@ -1,4 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery } from '@apollo/client';
 
 const ORGANIZATION_INFO_QUERY = gql`
   query GetOrganizationInfo {
@@ -35,8 +35,7 @@ function OrganizationInfo() {
         />
       )}
       <p>
-        Welcome <strong>{data.user.name}</strong> from{" "}
-        <strong>{data.organization.name}</strong> 👋
+        Welcome <strong>{data.user.name}</strong> from <strong>{data.organization.name}</strong> 👋
       </p>
     </div>
   );

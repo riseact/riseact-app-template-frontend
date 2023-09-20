@@ -75,6 +75,6 @@
         "path": "../common",
       },
     ],
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "../common/src/**/*"],
   }
   

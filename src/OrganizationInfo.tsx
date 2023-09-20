@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import { OrganizationInfoQueryResponse } from '@common/types';
 
 const ORGANIZATION_INFO_QUERY = gql`
   query GetOrganizationInfo {
@@ -15,10 +16,7 @@ const ORGANIZATION_INFO_QUERY = gql`
 `;
 
 function OrganizationInfo() {
-  const { data, loading, error } = useQuery<{
-    organization: { name: string; logo?: { square: string } };
-    user: { name: string };
-  }>(ORGANIZATION_INFO_QUERY);
+  const { data, loading, error } = useQuery<OrganizationInfoQueryResponse>(ORGANIZATION_INFO_QUERY);
 
   if (loading) return <div>Loading...</div>;
   if (error || !data) {

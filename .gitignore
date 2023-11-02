@@ -1,5 +1,9 @@
 node_modules
 build
 .devbuild
-.env
 lib
+.vite
+.log
+yarn.lock
+package-lock.json
+data

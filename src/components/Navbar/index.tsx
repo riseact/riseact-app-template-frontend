@@ -11,7 +11,7 @@ interface Props {
 
 const Navbar: FC<Props> = ({ menu }) => {
   return (
-    <HStack px={6} justify="end">
+    <HStack px={6} justify="end" borderBottom="1px solid" borderColor="gray.200">
       {menu.map(({ title, to }) => (
         <NavButton key={title} title={title} to={to} />
       ))}

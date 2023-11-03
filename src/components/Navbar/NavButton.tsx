@@ -16,6 +16,8 @@ const NavButton: FC<Props> = ({ title, to, isActive }) => {
   return (
     <HStack justify="end">
       <Box
+        width="100px"
+        textAlign="center"
         p={2}
         borderBottomWidth={2}
         borderColor={_isActive ? 'primary.400' : 'transparent'}

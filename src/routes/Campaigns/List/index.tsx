@@ -85,10 +85,13 @@ const List: FC = () => {
 
   return (
     <PageContainer width="full">
-      <PageTitle title="Lists">
+      <PageTitle
+        title="Campaigns"
+        subtitle="Functional example of how to make paginated and serchable lists with selectable records in Riseact apps"
+      >
         <HStack spacing={2}>
           <Button colorScheme="primary" onClick={() => navigate(ROUTE.CAMPAIGNS_CREATE)}>
-            Add a record
+            Add a campaign
           </Button>
         </HStack>
       </PageTitle>

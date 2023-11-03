@@ -1,7 +1,7 @@
 import { PageContainer, PageTitle, ActionMenu, Loading } from '@riseact/elements';
 import { FC } from 'react';
-import { Button, HStack } from '@chakra-ui/react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Button, HStack, useToast } from '@chakra-ui/react';
+import { useParams } from 'react-router-dom';
 import { BsCode } from 'react-icons/bs';
 import { HiQrcode } from 'react-icons/hi';
 import Form from './Form';
@@ -10,7 +10,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { CampaignInput, UserError } from '@common/gql/graphql';
 
 const Detail: FC = () => {
-  const navigate = useNavigate();
+  const toast = useToast();
   const params = useParams();
 
   const { loading, data } = useQuery(CAMPAIGN_DETAILS_QUERY, {
@@ -23,6 +23,13 @@ const Detail: FC = () => {
 
   const handleUpdate = async (values: CampaignInput): Promise<UserError[] | undefined> => {
     if (!data?.campaign) {
+      toast({
+        title: 'Something went wrong',
+        description: 'Campaign not found',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
       return;
     }
 
@@ -38,13 +45,25 @@ const Detail: FC = () => {
         const { campaign, userErrors } = response.data.campaignUpdate;
 
         if (campaign) {
-          // toast.success(`Campaign ${campaign.title} updated successfully`);
+          toast({
+            title: `Campaign ${campaign.title} updated successfully`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
         } else if (userErrors) {
           return userErrors;
         }
       }
-    } catch (error) {
-      // toast.error();
+    } catch (error: any) {
+      console.error(error);
+      toast({
+        title: 'Something went wrong',
+        description: error?.message || 'Please try again later',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 
@@ -55,7 +74,7 @@ const Detail: FC = () => {
       <PageTitle title="Campaign details" subtitle="A short mini-guide to create Riseact Apps">
         <HStack spacing={4}>
           <ActionMenu
-            mainButtonText="Actions"
+            mainButtonText="Menu button"
             buttons={[
               {
                 icon: <HiQrcode />,
@@ -69,8 +88,15 @@ const Detail: FC = () => {
               },
             ]}
           />
-          <Button variant="solid" colorScheme="primary" onClick={() => console.log('click')}>
-            Primary button
+          <Button variant="solid" onClick={() => console.log('click on secondary button')}>
+            A secondary button
+          </Button>
+          <Button
+            variant="solid"
+            colorScheme="primary"
+            onClick={() => console.log('click on primary button')}
+          >
+            A primary button
           </Button>
         </HStack>
       </PageTitle>

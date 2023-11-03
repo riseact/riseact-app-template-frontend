@@ -6,6 +6,7 @@ import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Form from './Form';
 import ROUTE from '@config/routing';
+import { useToast } from '@chakra-ui/react';
 
 const CAMPAIGN_CREATE_MUTATION = graphql(`
   mutation CampaignCreate($data: CampaignInput!) {
@@ -28,6 +29,7 @@ const CAMPAIGN_CREATE_MUTATION = graphql(`
 
 const Create: FC = () => {
   const navigate = useNavigate();
+  const toast = useToast();
 
   const [campaignCreate, { loading }] = useMutation(CAMPAIGN_CREATE_MUTATION);
 
@@ -40,13 +42,24 @@ const Create: FC = () => {
         if (userErrors) {
           return userErrors;
         } else if (campaign) {
-          // toast.success(`${t('Campaign')} ${data.title} ${t('created successfully')}`);
-          navigate(ROUTE.CAMPAIGNS_DETAIL.replace(":id", campaign.id.toString()));
+          toast({
+            title: `Campaign ${campaign.title} created successfully`,
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+          navigate(ROUTE.CAMPAIGNS_DETAIL.replace(':id', campaign.id.toString()));
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      // toast.error(getErrorString(error));
+      toast({
+        title: 'Something went wrong',
+        description: error?.message || 'Please try again later',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

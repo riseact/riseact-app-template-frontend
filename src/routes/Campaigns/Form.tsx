@@ -1,4 +1,4 @@
-import { Radio, RadioGroup, VStack } from '@chakra-ui/react';
+import { Radio, RadioGroup, VStack, useToast } from '@chakra-ui/react';
 import { CampaignInput, CampaignType, UserError, WebDocumentVisibility } from '@common/gql/graphql';
 import { ActionButtons, Card, InputBox, Layout } from '@riseact/elements';
 import { FC } from 'react';
@@ -13,6 +13,7 @@ interface Props {
 }
 
 const Form: FC<Props> = ({ initialValues, onSubmit, isSaveLoading }) => {
+  const toast = useToast();
   const form = useForm<CampaignInput>({
     mode: 'onSubmit',
     resolver: yupResolver<CampaignInput>(schema),
@@ -34,7 +35,6 @@ const Form: FC<Props> = ({ initialValues, onSubmit, isSaveLoading }) => {
     handleSubmit,
     reset,
     setError,
-    watch,
     control,
     formState: { isDirty, errors },
   } = form;
@@ -42,14 +42,22 @@ const Form: FC<Props> = ({ initialValues, onSubmit, isSaveLoading }) => {
   const submit: SubmitHandler<CampaignInput> = async (values) => {
     const userErrors = await onSubmit(values);
     if (userErrors) {
-      userErrors.map(
-        (e) =>
-          e.field &&
+      userErrors.map((e) => {
+        if (e.field) {
           setError(e.field as keyof CampaignInput, {
             type: 'custom',
             message: e.message || 'Cannot process this field',
-          }),
-      );
+          });
+        } else {
+          toast({
+            title: 'Something went wrong',
+            description: e.message || 'Please try again later',
+            status: 'error',
+            duration: 3000,
+            isClosable: true,
+          });
+        }
+      });
     } else {
       reset({}, { keepValues: true });
     }

@@ -14,7 +14,7 @@ const NavButton: FC<Props> = ({ title, to, isActive }) => {
   const _isActive = isActive || window.location.pathname === to;
 
   return (
-    <HStack justify="end">
+    <HStack justify="start">
       <Box
         width="100px"
         textAlign="center"
@@ -27,7 +27,7 @@ const NavButton: FC<Props> = ({ title, to, isActive }) => {
         }}
         onClick={() => navigate(to)}
       >
-        <Text fontWeight={_isActive ? 'bold' : 'semibold'}>{title}</Text>
+        <Text fontWeight={_isActive ? 'semibold' : 'medium'}>{title}</Text>
       </Box>
     </HStack>
   );

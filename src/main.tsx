@@ -7,9 +7,7 @@ import { RiseactThemeProvider } from '@riseact/elements';
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <ApolloProvider client={gqlClient}>
     <RiseactThemeProvider>
-      {/* <ChakraBaseProvider theme={defaultTheme}> */}
       <Router />
-      {/* </ChakraBaseProvider> */}
     </RiseactThemeProvider>
   </ApolloProvider>,
 );

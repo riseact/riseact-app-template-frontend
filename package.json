@@ -1,6 +1,9 @@
 {
   "name": "client",
   "version": "1.0.0",
+  "scripts": {
+    "build": "vite build"
+  },
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",

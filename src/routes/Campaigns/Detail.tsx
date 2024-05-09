@@ -105,9 +105,6 @@ const Detail: FC = () => {
         initialValues={{
           title: data?.campaign.title,
           content: data?.campaign.content,
-
-          // todo remove
-          channels: [],
           tags: [],
           costExamples: [],
         }}

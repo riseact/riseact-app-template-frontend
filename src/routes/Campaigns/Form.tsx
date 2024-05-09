@@ -20,12 +20,6 @@ const Form: FC<Props> = ({ initialValues, onSubmit, isSaveLoading }) => {
     defaultValues: {
       visibility: WebDocumentVisibility.Published,
       type: CampaignType.Donation,
-
-      // todo remove required
-      channels: [],
-      tags: [],
-      costExamples: [],
-
       ...initialValues,
     },
   });
@@ -137,18 +131,37 @@ const schema: yup.ObjectSchema<CampaignInput> = yup.object({
   allowPeerToPeer: yup.boolean(),
   slug: yup.string().nullable(),
   template: yup.string().nullable(),
-  // todo remove required
-  tags: yup.array().required(),
+  tags: yup.array(yup.string().required()).required(),
+  allowCustomAmount: yup.boolean(),
+  allowCustomSubscriptionAmount: yup.boolean(),
+  hasOneOff: yup.boolean(),
+  hasSubscription: yup.boolean(),
+  hasSubscriptionCustomOptions: yup.boolean(),
+  defaultAmount: yup.number().nullable(),
+  defaultSubscriptionAmount: yup.number().nullable(),
+  minAmount: yup.number().nullable(),
+  maxAmount: yup.number().nullable(),
+  minSubscriptionAmount: yup.number().nullable(),
+  maxSubscriptionAmount: yup.number().nullable(),
+  requiredFields: yup.array(yup.string().required()),
+  shownFields: yup.array(yup.string().required()),
+  excludedChannels: yup.array(yup.number().required()),
+  asks: yup.array(yup.number().required()),
+  asksSubscription: yup.array(yup.number().required()),
+  privacyNote: yup.string().nullable(),
+  thankyouTemplate: yup.string().nullable(),
   channels: yup.array(yup.number().required()).required(),
   costExamples: yup
     .array(
-      yup
-        .object({
-          amount: yup.number().required(),
-          description: yup.string().required(),
-          uuid: yup.string().required(),
-        })
-        .required(),
+      yup.object({
+        amount: yup.number().required(),
+        description: yup.string().required(),
+        uuid: yup.string().required(),
+        quantity: yup.number().required(),
+        name: yup.string().required(),
+        monitorQuantity: yup.boolean().required(),
+        availableQuantity: yup.number().required(),
+      }),
     )
     .required(),
 });

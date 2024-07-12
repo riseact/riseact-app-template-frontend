@@ -151,6 +151,14 @@ const schema: yup.ObjectSchema<CampaignInput> = yup.object({
   privacyNote: yup.string().nullable(),
   thankyouTemplate: yup.string().nullable(),
   channels: yup.array(yup.number().required()).required(),
+  customfields: yup.array(
+    yup
+      .object({
+        key: yup.string().required(),
+        value: yup.string().required(),
+      })
+      .required(),
+  ),
   costExamples: yup
     .array(
       yup.object({

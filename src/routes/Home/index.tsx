@@ -9,7 +9,7 @@ const Home = () => {
     <PageContainer>
       <PageTitle
         title="Welcome to your first Riseact App"
-        subtitle="A strongly opinionated React framework for building Riseact Apps"
+        subtitle="React framework for building Riseact Apps"
       />
 
       <Switch>
@@ -27,8 +27,10 @@ const Home = () => {
             <br />
             This is your first Riseact App!
             <br />
-            This app is a demo of the Riseact framework.
+            Your name was queried from the GQL client from your backend, via the private api
+            /api/organization-info
             <br />
+            Go to the <strong>Campaigns</strong> tab to test the queries directly from the client.
           </Card>
         </Default>
       </Switch>
